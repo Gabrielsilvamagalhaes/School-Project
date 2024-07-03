@@ -1,3 +1,6 @@
+import  dotenv  from 'dotenv';
+dotenv.config();
+import './src/config/database';
 import express from 'express';
 import routes from './src/routes/home';
 const app = express();
