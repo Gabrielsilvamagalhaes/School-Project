@@ -6,4 +6,8 @@ export default class JwtService {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
   }
+
+  static verifyToken(token) {
+    return jsonwebToken.verify(token, process.env.TOKEN_SECRET);
+  }
 }

@@ -9,7 +9,8 @@ class UserController {
 
     try {
       const newUser = await User.create(req.body);
-      res.status(201).json(newUser);
+      const { id, name, email } = newUser;
+      res.status(201).json({ id, name, email });
     } catch (error) {
       console.error('Error creating user:', error);
       console.log('----->', error.errors);
@@ -59,7 +60,9 @@ class UserController {
       if(!user) {
         return res.status(404).json({ error: 'User not found' });
       }
-      res.status(200).json(user);
+
+      const { id, name, email } = user;
+      res.status(200).json({ id, name, email });
     } catch (error) {
       console.log('Error ao encontrar usuário no metodo show:', error.message);
       return res.status(500).json(error.message);
@@ -69,11 +72,7 @@ class UserController {
 
   async update(req, res) {
     try {
-      if(!req.params.id) {
-        return res.status(400).json({ error: 'Missing required fields' });
-      }
-
-      const findedUser = await User.findByPk(req.params.id);
+      const findedUser = await User.findByPk(req.userId);
       if(!findedUser) {
         return res.status(404).json({ error: 'User not found' });
       }
@@ -81,7 +80,8 @@ class UserController {
       await findedUser.update(req.body);
       await findedUser.save();
 
-      res.status(200).json(findedUser);
+      const { id, name, email } = findedUser;
+      res.status(200).json({ id, name, email });
     } catch (error) {
       console.log('Erro ao atualizar usuário no metodo update:', error.message);
       if(error.errors) {
@@ -96,7 +96,7 @@ class UserController {
 
   async delete (req, res) {
     try {
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
       if(!user) {
         return res.status(404).json({error: 'User not found'});
       }
