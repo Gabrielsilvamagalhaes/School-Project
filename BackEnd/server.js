@@ -14,6 +14,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 //Config response for jsons
 app.use(express.json());
+app.use(express.static('./uploads'));
+
 app.use(homeRoutes);
 app.use(userRoutes);
 app.use(studentRoutes);

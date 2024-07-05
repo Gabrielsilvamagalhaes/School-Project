@@ -73,7 +73,10 @@ export default class Student extends Model {
       });
       return this;
   }
+  // Model associations
+  static associate(models) {
+    this.hasMany(models.Photo, { foreignKey: 'student_id', as: 'photos' });
+  }
 
 }
 
-// Model associations

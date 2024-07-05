@@ -1,4 +1,5 @@
 import Student from "../models/Student";
+import Photo from "../models/Photo";
 
 
 class studentController {
@@ -6,6 +7,15 @@ class studentController {
     try {
       const students = await Student.findAll({
         attributes: ['id', 'name', 'lastName', 'email', 'age', 'weight', 'height'],
+        order: [
+          ['id', 'DESC'] ,  //ordenando a busca por id de forma decrescente
+          ['photos', 'id', 'DESC']  //ordenando a busca por id das fotos de forma decrescente
+        ],
+        include: {
+          model: Photo,
+          as: 'photos',
+          attributes: ['filename', 'url'],
+        }
       });
       res.status(200).json(students);
     } catch (error) {
@@ -17,11 +27,21 @@ class studentController {
   async show(req, res) {
     try {
       if(!req.params.id) return res.status(400).json({ error: 'Missing id' });
-      const student = await Student.findByPk(req.params.id);
+      const student = await Student.findByPk(req.params.id, {
+        order: [
+          ['id', 'DESC'] ,  //ordenando a busca por id de forma decrescente
+          ['photos', 'id', 'DESC']  //ordenando a busca por id das fotos de forma decrescente
+        ],
+        include: {
+          model: Photo,
+          as: 'photos',
+          attributes: ['filename', 'url'],
+        },
+      });
       if (!student) return res.status(404).json({ error: 'Student not found' });
 
-      const { id, name, lastName, email, age, weight, height } = student;
-      res.status(200).json({ id, name, lastName, email, age, weight, height });
+      const { id, name, lastName, email, age, weight, height, photos } = student;
+      res.status(200).json({ id, name, lastName, email, age, weight, height, photos });
     } catch (error) {
       console.error('Error fetching students:', error.message);
       return res.status(500).json(error.message);
