@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function PrivateRoute({ children }) {
@@ -5,8 +6,13 @@ export default function PrivateRoute({ children }) {
   const navigate = useNavigate()
   const location = useLocation()
 
-  if (isAuthenticated) return children
+  useEffect(() => {
+    if (!isAuthenticated) {
+      localStorage.setItem('redirectPath', JSON.stringify(location.pathname))
+      navigate('/login')
+      console.log('Passando pela rota privada')
+    }
+  }, [])
 
-  localStorage.setItem('redirectPath', location.pathname)
-  return navigate('/')
+  return children
 }

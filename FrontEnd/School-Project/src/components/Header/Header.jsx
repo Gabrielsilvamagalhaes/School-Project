@@ -6,13 +6,13 @@ export default function Header() {
   return (
     <>
       <Nav>
-        <Link to={'/home'}>
+        <Link to={'/'}>
           <FaHome size={24} />
         </Link>
-        <Link to={'profile'}>
+        <Link to={'/register'}>
           <FaUserAlt size={24} />
         </Link>
-        <Link to={'/log-out'}>
+        <Link to={'/login'}>
           <FaSignInAlt size={24} />
         </Link>
       </Nav>

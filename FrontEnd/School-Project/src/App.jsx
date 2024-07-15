@@ -7,8 +7,7 @@ import { RouterProvider } from 'react-router-dom'
 
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from './services/queryClient.js'
-import { AuthContextProvider } from './contexts/authContext.jsx'
-
+import { AuthContextProvider } from './contexts/AuthContext.jsx'
 export default function App() {
   return (
     <>

@@ -1,10 +1,10 @@
 import { Title } from './styled'
 import { Container } from '../../styles/GlobalStyles'
 
-export default function Login() {
+export default function Register() {
   return (
     <Container>
-      <Title isRed={false}>Login Page</Title>
+      <Title isRed={false}>Register Page</Title>
     </Container>
   )
 }
