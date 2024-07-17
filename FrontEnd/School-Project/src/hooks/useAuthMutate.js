@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from '../services/axios'
 import { toast } from 'react-toastify'
 import Cookies from 'universal-cookie'
+import { draggable, pauseOnHover, theme } from '../config/toastifyOptions'
 
 const getToken = async ({ email, password }) => {
   const response = await axios
@@ -10,7 +11,7 @@ const getToken = async ({ email, password }) => {
       const cookies = new Cookies(null, { path: '/' })
       cookies.remove('jwt_authorization')
       console.clear()
-      toast.error(error?.response?.data)
+      toast.error(error?.response?.data, { theme, pauseOnHover, draggable })
     })
 
   axios.defaults.headers.Authorization = `Bearer ${response?.data?.token}`

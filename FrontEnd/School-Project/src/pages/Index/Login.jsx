@@ -1,10 +1,11 @@
-import { Form } from './styled'
-import { Container } from '../../styles/GlobalStyles'
 import { useEffect, useState } from 'react'
-import userFormsValidator from '../../services/userValidator'
-import useAuth from '../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
+
+import { Form } from './styled'
+import { Container } from '../../styles/GlobalStyles'
+import useAuth from '../../hooks/useAuth'
+import userFormsValidator from '../../services/userValidator'
 import cookies from '../../services/cookie'
 
 export default function Login() {

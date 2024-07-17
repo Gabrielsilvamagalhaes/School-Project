@@ -5,6 +5,8 @@ import { jwtDecode } from 'jwt-decode'
 import { toast } from 'react-toastify'
 import cookies from '../services/cookie'
 
+import { draggable, pauseOnHover, theme } from '../config/toastifyOptions'
+
 AuthContextProvider.propTypes = {
   children: PropTypes.node,
 }
@@ -34,7 +36,7 @@ export function AuthContextProvider({ children }) {
       })
       setUser(user)
       setJwTToken(cookies.get('jwt_authorization'))
-      toast.success('Login successful!')
+      toast.success('logado com sucesso!', { theme, pauseOnHover, draggable })
     }
   }, [isSuccess, data])
 
