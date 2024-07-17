@@ -23,6 +23,7 @@ export function AuthContextProvider({ children }) {
   useEffect(() => {
     if (isSuccess && data) {
       const { token, user } = data
+      console.log(data)
       const decoded = jwtDecode(token)
 
       cookies.set('jwt_authorization', token, {

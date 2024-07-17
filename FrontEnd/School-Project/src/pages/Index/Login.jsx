@@ -5,6 +5,7 @@ import userFormsValidator from '../../services/userValidator'
 import useAuth from '../../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
+import cookies from '../../services/cookie'
 
 export default function Login() {
   const [email, setEmail] = useState('')
@@ -22,13 +23,12 @@ export default function Login() {
   const redirectLastPage = () => {
     const path = localStorage.getItem('redirectPath')
     const redirectPath = path ? JSON.parse(path) : '/'
-    console.log(redirectPath)
     navigate(redirectPath)
   }
 
   useEffect(() => {
     if (jwtToken) {
-      const token = jwtToken
+      const token = cookies.get('jwt_authorization')
       if (token && typeof token === 'string') {
         try {
           const decodedToken = jwtDecode(token)
