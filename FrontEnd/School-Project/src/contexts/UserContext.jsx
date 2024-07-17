@@ -5,6 +5,7 @@ import { useUserMutate } from '../hooks/useUserMutate'
 import { draggable, pauseOnHover, theme } from '../config/toastifyOptions'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../components/Loading/Loading'
 
 export const UserContext = createContext({})
 
@@ -13,7 +14,7 @@ UserContextProvider.propTypes = {
 }
 
 export function UserContextProvider({ children }) {
-  const { mutate, isSuccess, isError, error } = useUserMutate()
+  const { mutate, isSuccess, isError, error, isPending } = useUserMutate()
   const navigate = useNavigate()
 
   const create = ({ name, email, password }) => {
@@ -43,5 +44,9 @@ export function UserContextProvider({ children }) {
     create,
   }
 
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>
+  return (
+    <UserContext.Provider value={user}>
+      {isPending ? <Loading /> : children}
+    </UserContext.Provider>
+  )
 }

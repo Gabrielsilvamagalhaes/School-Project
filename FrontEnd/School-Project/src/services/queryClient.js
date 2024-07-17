@@ -4,7 +4,7 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 30, //30 segundos para refazer a requisição novamente ao voltar para pagina
+      // staleTime: 1000 * 60 * 30, //30 segundos para refazer a requisição novamente ao voltar para pagina
     },
   },
 })

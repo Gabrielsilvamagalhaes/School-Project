@@ -7,11 +7,12 @@ import { Container } from '../../styles/GlobalStyles'
 import useAuth from '../../hooks/useAuth'
 import userFormsValidator from '../../services/userValidator'
 import cookies from '../../services/cookie'
+import Loading from '../../components/Loading/Loading'
 
 export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { createToken, jwtToken } = useAuth()
+  const { createToken, jwtToken, isPending } = useAuth()
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -47,7 +48,7 @@ export default function Login() {
   return (
     <Container>
       <h1>Login</h1>
-
+      {isPending && <Loading />}
       <Form onSubmit={handleSubmit}>
         <input
           type="text"

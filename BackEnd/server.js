@@ -6,6 +6,7 @@ import "./src/database";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import delay from "express-delay";
 
 import homeRoutes from "./src/routes/homeRouter";
 import userRoutes from "./src/routes/userRouter";
@@ -28,6 +29,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions)); //
 app.use(helmet());
+//Delay for test loading requests in my frontend
+app.use(delay(2000));
 //Config response for forms and others
 app.use(express.urlencoded({ extended: true }));
 //Config response for jsons

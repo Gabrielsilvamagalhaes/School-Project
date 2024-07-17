@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import cookies from '../services/cookie'
 
 import { draggable, pauseOnHover, theme } from '../config/toastifyOptions'
+import Loading from '../components/Loading/Loading'
 
 AuthContextProvider.propTypes = {
   children: PropTypes.node,
@@ -49,16 +50,13 @@ export function AuthContextProvider({ children }) {
 
   const tokenService = {
     createToken,
-    isSuccess,
+    isPending,
     user,
     cookies,
     jwtToken,
   }
 
   return (
-    <AuthContext.Provider value={tokenService}>
-      {isPending && <p>Carregando...</p>}
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={tokenService}>{children}</AuthContext.Provider>
   )
 }

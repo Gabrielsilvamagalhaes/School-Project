@@ -6,6 +6,7 @@ import { FaUserCircle, FaEdit, FaWindowClose } from 'react-icons/fa'
 
 import { Container } from '../../styles/GlobalStyles'
 import { StudentContainer, ProfilePicture } from './styled'
+import Loading from '../../components/Loading/Loading'
 
 export default function Students() {
   const { data, isLoading } = useStudentsData()
@@ -14,9 +15,9 @@ export default function Students() {
     <Container>
       <h1>Students</h1>
       <StudentContainer>
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : data.length > 0 ? (
+        {isLoading && <Loading />}
+
+        {data?.length > 0 ? (
           data?.map((student) => (
             <div key={student.id} style={{ margin: '10px' }}>
               {student?.photos[0]?.url ? (

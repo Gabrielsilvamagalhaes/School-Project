@@ -14,7 +14,7 @@ const getToken = async ({ email, password }) => {
       toast.error(error?.response?.data, { theme, pauseOnHover, draggable })
     })
 
-  axios.defaults.headers.Authorization = `Bearer ${response?.data?.token}`
+  axios.defaults.headers.authorization = `Bearer ${response?.data?.token}`
   return response?.data
 }
 
