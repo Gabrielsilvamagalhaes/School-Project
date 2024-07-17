@@ -9,7 +9,6 @@ import { StudentContainer, ProfilePicture } from './styled'
 
 export default function Students() {
   const { data, isLoading } = useStudentsData()
-  console.log(data)
 
   return (
     <Container>

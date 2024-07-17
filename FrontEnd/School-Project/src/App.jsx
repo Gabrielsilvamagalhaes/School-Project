@@ -11,13 +11,13 @@ import { AuthContextProvider } from './contexts/AuthContext.jsx'
 export default function App() {
   return (
     <>
-      <AuthContextProvider>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <AuthContextProvider>
           <RouterProvider router={router} />
           <GlobalStyles />
           <ToastContainer autoClose={3000} className="toast-container" />
-        </QueryClientProvider>
-      </AuthContextProvider>
+        </AuthContextProvider>
+      </QueryClientProvider>
     </>
   )
 }

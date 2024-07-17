@@ -1,5 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 
+import { UserContextProvider } from './contexts/UserContext.jsx'
+
 //Pages
 import Login from './pages/Index/Login'
 import Student from './pages/Student/Student'
@@ -9,7 +11,7 @@ import Photos from './pages/Photos/Photos'
 import ErrorPage from './pages/error/ErrorPage'
 
 //Private Routes
-import PrivateRoute from './routes/PrivateRoute'
+import PrivateRoute from './routes/PrivateRoute.jsx'
 
 //Layout Routes
 import Root from './routes/Root'
@@ -26,7 +28,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/register',
-        element: <Register />,
+        element: (
+          <UserContextProvider>
+            <Register />,
+          </UserContextProvider>
+        ),
       },
       {
         path: '/login',

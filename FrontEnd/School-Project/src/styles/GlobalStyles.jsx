@@ -45,12 +45,11 @@ button {
   border: 1px solid transparent;
   border-radius: 5px;
   font-weight: 700;
-  transition: 0.3s;
+  transition: all 300ms;
 }
 
 button:hover {
-  border-radius: 5px;
-  border: 1px solid violet;
+  filter: brightness(75%)
 }
 
 a {
