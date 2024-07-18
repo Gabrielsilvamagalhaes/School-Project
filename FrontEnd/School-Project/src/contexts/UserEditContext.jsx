@@ -1,25 +1,24 @@
 import { createContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-import { useUserMutate } from '../hooks/useUserMutate'
+import { useUserEditMutate } from '../hooks/useUserEditMutate'
 import { draggable, pauseOnHover, theme } from '../config/toastifyOptions'
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
 import Loading from '../components/Loading/Loading'
 
-export const UserContext = createContext({})
+export const EditUserContext = createContext({})
 
-UserContextProvider.propTypes = {
+EditUserContextProvider.propTypes = {
   children: PropTypes.node,
 }
 
-export function UserContextProvider({ children }) {
-  const { mutate, isSuccess, isError, error, isPending } = useUserMutate()
-  const navigate = useNavigate()
+export function EditUserContextProvider({ children }) {
+  const { mutateAsync, isSuccess, isError, error, isPending } =
+    useUserEditMutate()
 
-  const create = ({ name, email, password }) => {
+  const edit = async ({ name, email, password }) => {
     const data = { name, email, password }
-    mutate(data)
+    await mutateAsync(data)
   }
 
   useEffect(() => {
@@ -29,9 +28,8 @@ export function UserContextProvider({ children }) {
         pauseOnHover,
         draggable,
       })
-      navigate('/login')
     }
-  }, [isSuccess, navigate])
+  }, [isSuccess])
 
   useEffect(() => {
     if (isError) {
@@ -45,12 +43,13 @@ export function UserContextProvider({ children }) {
   }, [isError, error])
 
   const user = {
-    create,
+    edit,
+    isSuccess,
   }
 
   return (
-    <UserContext.Provider value={user}>
+    <EditUserContext.Provider value={user}>
       {isPending ? <Loading /> : children}
-    </UserContext.Provider>
+    </EditUserContext.Provider>
   )
 }

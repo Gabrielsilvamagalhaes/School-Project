@@ -2,6 +2,7 @@ import { toast } from 'react-toastify'
 import { isEmail } from 'validator'
 
 export default function userFormsValidator(
+  id,
   { name, email, password },
   isAFormsRegister
 ) {
@@ -14,9 +15,11 @@ export default function userFormsValidator(
     }
   }
 
-  if (!isEmail(email)) {
-    formErrors = true
-    toast.error('Invalid email')
+  if ((id && email) || !id) {
+    if (!isEmail(email)) {
+      formErrors = true
+      toast.error('Invalid email')
+    }
   }
 
   if (password.length < 6 || password.length > 50) {

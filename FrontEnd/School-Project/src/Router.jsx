@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 import { UserContextProvider } from './contexts/UserContext.jsx'
+import { EditUserContextProvider } from './contexts/UserEditContext.jsx'
 
 //Pages
 import Login from './pages/Index/Login'
@@ -30,7 +31,9 @@ const router = createBrowserRouter([
         path: '/register',
         element: (
           <UserContextProvider>
-            <Register />,
+            <EditUserContextProvider>
+              <Register />
+            </EditUserContextProvider>
           </UserContextProvider>
         ),
       },

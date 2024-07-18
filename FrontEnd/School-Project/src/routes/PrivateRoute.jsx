@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import cookies from '../services/cookie'
+import { jwtDecode } from 'jwt-decode'
+import { toast } from 'react-toastify'
 
 export default function PrivateRoute({ children }) {
   const navigate = useNavigate()
@@ -14,7 +16,15 @@ export default function PrivateRoute({ children }) {
 
   useEffect(() => {
     const token = cookies.get('jwt_authorization')
-    localStorage.setItem('redirectPath', JSON.stringify(location.pathname))
+    try {
+      const { exp } = jwtDecode(token)
+      if (exp > Date.now() / 1000)
+        toast.warning('Sua sessão expirou, faça login novamente')
+    } catch (e) {
+      console.log(e)
+    } finally {
+      localStorage.setItem('redirectPath', JSON.stringify(location.pathname))
+    }
     if (token === undefined) {
       navigate('/login')
       console.log('Não Possui Autenticação')
@@ -28,6 +38,10 @@ export default function PrivateRoute({ children }) {
       return
     }
   }, [])
+
+  useEffect(() => {
+    toast.info('Você precisa estar logado para acessar essa página')
+  }, [navigate])
 
   return children
 }

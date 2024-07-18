@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import cookies from '../services/cookie'
 
 import { draggable, pauseOnHover, theme } from '../config/toastifyOptions'
-import Loading from '../components/Loading/Loading'
+import axios from '../services/axios'
 
 AuthContextProvider.propTypes = {
   children: PropTypes.node,
@@ -19,7 +19,7 @@ export function AuthContextProvider({ children }) {
   const [user, setUser] = useState({})
   const [jwtToken, setJwTToken] = useState('')
 
-  const createToken = async ({ email, password }) => {
+  const createToken = ({ email, password }) => {
     mutate({ email, password })
   }
 
@@ -45,13 +45,45 @@ export function AuthContextProvider({ children }) {
     const token = cookies.get('jwt_authorization')
     if (token && typeof token === 'string') {
       setJwTToken(token)
+
+      const decoded = jwtDecode(token)
+      const { id, name, email } = decoded
+      setUser({ id, name, email })
     }
   }, [])
+
+  const modUser = async (updatedUser) => {
+    const response = await axios.post('/tokens', {
+      email: updatedUser?.email || user.email,
+      password: updatedUser?.password,
+    })
+
+    if (response.status !== 200) return toast.error(response?.data?.message)
+    const { token } = response.data
+
+    setUser((state) => {
+      const newState = {
+        ...state,
+        name: updatedUser.name || user.name,
+        email: updatedUser.email || user.email,
+      }
+      return newState
+    })
+
+    const decoded = jwtDecode(token)
+    cookies.set('jwt_authorization', token, {
+      path: '/',
+      sameSite: 'none',
+      expires: new Date(decoded.exp * 1000),
+      secure: true,
+    })
+  }
 
   const tokenService = {
     createToken,
     isPending,
     user,
+    modUser,
     cookies,
     jwtToken,
   }

@@ -25,7 +25,11 @@ class TokenController {
     if (!isValidPassword) return res.status(401).json("Senha inválida");
 
     //Gerando o token
-    const token = JwtService.generateToken({ id: user.id, email });
+    const token = JwtService.generateToken({
+      id: user.id,
+      name: user.name,
+      email,
+    });
     res
       .status(200)
       .json({ token: token, user: { name: user.name, id: user.id, email } });

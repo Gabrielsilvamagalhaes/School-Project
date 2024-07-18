@@ -17,7 +17,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const formErrors = userFormsValidator({ email, password }, false)
+    const formErrors = userFormsValidator(null, { email, password }, false)
     if (formErrors) return
 
     await createToken({ email, password })
