@@ -23,34 +23,11 @@ export function AuthContextProvider({ children }) {
     mutate({ email, password })
   }
 
-  useEffect(() => {
-    if (isSuccess && data) {
-      const { token, user } = data
-      console.log(data)
-      const decoded = jwtDecode(token)
-
-      cookies.set('jwt_authorization', token, {
-        path: '/',
-        sameSite: 'none',
-        expires: new Date(decoded.exp * 1000),
-        secure: true,
-      })
-      setUser(user)
-      setJwTToken(cookies.get('jwt_authorization'))
-      toast.success('logado com sucesso!', { theme, pauseOnHover, draggable })
-    }
-  }, [isSuccess, data])
-
-  useEffect(() => {
-    const token = cookies.get('jwt_authorization')
-    if (token && typeof token === 'string') {
-      setJwTToken(token)
-
-      const decoded = jwtDecode(token)
-      const { id, name, email } = decoded
-      setUser({ id, name, email })
-    }
-  }, [])
+  const logoutUser = () => {
+    cookies.remove('jwt_authorization')
+    setJwTToken('')
+    setUser({})
+  }
 
   const modUser = async (updatedUser) => {
     const response = await axios.post('/tokens', {
@@ -79,6 +56,38 @@ export function AuthContextProvider({ children }) {
     })
   }
 
+  useEffect(() => {
+    if (isSuccess && data) {
+      const { token, user } = data
+      const decoded = jwtDecode(token)
+
+      cookies.set('jwt_authorization', token, {
+        path: '/',
+        sameSite: 'none',
+        expires: new Date(decoded.exp * 1000),
+        secure: true,
+      })
+      setUser(user)
+      setJwTToken(cookies.get('jwt_authorization'))
+      toast.success('logado com sucesso!', { theme, pauseOnHover, draggable })
+    }
+  }, [isSuccess, data])
+
+  useEffect(() => {
+    const token = cookies.get('jwt_authorization')
+    if (token && typeof token === 'string') {
+      setJwTToken(token)
+      console.log('Token is set')
+      const decoded = jwtDecode(token)
+      const { id, name, email } = decoded
+      setUser({ id, name, email })
+    } else {
+      console.log('Token is removed')
+      setJwTToken('')
+      setUser({})
+    }
+  }, [jwtToken])
+
   const tokenService = {
     createToken,
     isPending,
@@ -86,6 +95,7 @@ export function AuthContextProvider({ children }) {
     modUser,
     cookies,
     jwtToken,
+    logoutUser,
   }
 
   return (

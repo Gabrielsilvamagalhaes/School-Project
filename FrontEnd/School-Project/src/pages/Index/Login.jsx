@@ -34,7 +34,6 @@ export default function Login() {
       if (token && typeof token === 'string') {
         try {
           const decodedToken = jwtDecode(token)
-          console.log(decodedToken)
           redirectLastPage()
         } catch (error) {
           console.error('Invalid token', error)

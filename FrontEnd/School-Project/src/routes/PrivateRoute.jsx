@@ -18,7 +18,7 @@ export default function PrivateRoute({ children }) {
     const token = cookies.get('jwt_authorization')
     try {
       const { exp } = jwtDecode(token)
-      if (exp > Date.now() / 1000)
+      if (exp > Date.now())
         toast.warning('Sua sessão expirou, faça login novamente')
     } catch (e) {
       console.log(e)
@@ -26,6 +26,7 @@ export default function PrivateRoute({ children }) {
       localStorage.setItem('redirectPath', JSON.stringify(location.pathname))
     }
     if (token === undefined) {
+      toast.info('Você precisa estar logado para acessar essa página')
       navigate('/login')
       console.log('Não Possui Autenticação')
       return
@@ -38,10 +39,6 @@ export default function PrivateRoute({ children }) {
       return
     }
   }, [])
-
-  useEffect(() => {
-    toast.info('Você precisa estar logado para acessar essa página')
-  }, [navigate])
 
   return children
 }
