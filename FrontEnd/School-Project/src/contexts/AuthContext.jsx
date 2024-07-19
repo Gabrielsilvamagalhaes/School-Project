@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useAuthMutate } from '../hooks/useAuthMutate'
+import { useAuthMutate } from '../hooks/Authentication/useAuthMutate'
 import { jwtDecode } from 'jwt-decode'
 import { toast } from 'react-toastify'
 import cookies from '../services/cookie'

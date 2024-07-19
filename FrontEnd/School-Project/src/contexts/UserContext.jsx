@@ -1,7 +1,7 @@
 import { createContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-import { useUserMutate } from '../hooks/useUserMutate'
+import { useUserMutate } from '../hooks/User/useUserMutate'
 import { draggable, pauseOnHover, theme } from '../config/toastifyOptions'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'

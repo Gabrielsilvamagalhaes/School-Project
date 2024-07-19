@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import axios from '../services/axios'
-import cookies from '../services/cookie'
+import axios from '../../services/axios'
+import cookies from '../../services/cookie'
 
 const getStudents = async () => {
   const response = await axios.get('/students')

@@ -7,7 +7,7 @@ import {
   FaCircle,
   FaPowerOff,
 } from 'react-icons/fa'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../hooks/Authentication/useAuth'
 
 export default function Header() {
   const { jwtToken, logoutUser } = useAuth()

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import axios from '../services/axios'
+import axios from '../../services/axios'
 
 const editUser = async (data) => {
   const response = await axios.put('/user/update', data)

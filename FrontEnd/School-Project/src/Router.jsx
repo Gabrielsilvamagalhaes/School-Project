@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import { UserContextProvider } from './contexts/UserContext.jsx'
 import { EditUserContextProvider } from './contexts/UserEditContext.jsx'
+import { EditStudentContextProvider } from './contexts/StudentEditContext.jsx'
 
 //Pages
 import Login from './pages/Index/Login'
@@ -16,6 +17,7 @@ import PrivateRoute from './routes/PrivateRoute.jsx'
 
 //Layout Routes
 import Root from './routes/Root'
+import loadStudentDetails from './loaders/loadStudentDetails'
 
 const router = createBrowserRouter([
   {
@@ -46,9 +48,12 @@ const router = createBrowserRouter([
         path: '/student',
         element: (
           <PrivateRoute>
-            <Student />
+            <EditStudentContextProvider>
+              <Student />
+            </EditStudentContextProvider>
           </PrivateRoute>
         ),
+        loader: loadStudentDetails,
         children: [
           {
             path: ':id/edit',

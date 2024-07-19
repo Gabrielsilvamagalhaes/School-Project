@@ -2,10 +2,10 @@ import { Container } from '../../styles/GlobalStyles'
 import { Form } from './styled'
 import { useEffect, useState } from 'react'
 
-import useUser from '../../hooks/useUser'
+import useUser from '../../hooks/User/useUser'
 import userFormsValidator from '../../services/userValidator'
-import useAuth from '../../hooks/useAuth'
-import useEditUser from '../../hooks/useEditUser'
+import useAuth from '../../hooks/Authentication/useAuth'
+import useEditUser from '../../hooks/User/useEditUser'
 
 export default function Register() {
   const { user, modUser } = useAuth()

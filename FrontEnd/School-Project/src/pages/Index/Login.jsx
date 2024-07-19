@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode'
 
 import { Form } from './styled'
 import { Container } from '../../styles/GlobalStyles'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../hooks/Authentication/useAuth'
 import userFormsValidator from '../../services/userValidator'
 import cookies from '../../services/cookie'
 import Loading from '../../components/Loading/Loading'

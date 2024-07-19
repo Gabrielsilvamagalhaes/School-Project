@@ -3,11 +3,11 @@ import { toast } from 'react-toastify'
 import { FaUserCircle, FaEdit, FaWindowClose } from 'react-icons/fa'
 
 import { Container } from '../../styles/GlobalStyles'
-import { StudentContainer, ProfilePicture } from './styled'
+import { StudentContainer, ProfilePicture, NewStudent } from './styled'
 import Loading from '../../components/Loading/Loading'
-import useAuth from '../../hooks/useAuth'
-import { useStudentsData } from '../../hooks/useStudentsData'
-import { useRemoveStudent } from '../../hooks/useRemoveStudent'
+import useAuth from '../../hooks/Authentication/useAuth'
+import { useStudentsData } from '../../hooks/Student/useStudentsData'
+import { useRemoveStudent } from '../../hooks/Student/useRemoveStudent'
 import { useEffect } from 'react'
 
 export default function Students() {
@@ -41,6 +41,9 @@ export default function Students() {
   return (
     <Container>
       <h1>Students</h1>
+
+      <NewStudent to={'/student'}>New Student</NewStudent>
+
       <StudentContainer>
         {(isLoading && <Loading />) || (isPending && <Loading />)}
 

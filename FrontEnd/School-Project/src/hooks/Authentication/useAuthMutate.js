@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
-import axios from '../services/axios'
+import axios from '../../services/axios'
 import { toast } from 'react-toastify'
 import Cookies from 'universal-cookie'
-import { draggable, pauseOnHover, theme } from '../config/toastifyOptions'
+import { draggable, pauseOnHover, theme } from '../../config/toastifyOptions'
 
 const getToken = async ({ email, password }) => {
   const response = await axios

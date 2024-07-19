@@ -1,6 +1,5 @@
-import { Sequelize, DataTypes, Model } from 'sequelize';
-import app from '../config/app';
-
+import { Sequelize, DataTypes, Model } from "sequelize";
+import app from "../config/app";
 
 // Model definition
 
@@ -13,7 +12,7 @@ export default class Photo extends Model {
           type: DataTypes.STRING,
           validate: {
             notEmpty: {
-              msg: 'Originalname cannot be empty',
+              msg: "Originalname cannot be empty",
             },
           },
           // allowNull por padrão é true
@@ -22,32 +21,32 @@ export default class Photo extends Model {
           type: DataTypes.STRING,
           validate: {
             notEmpty: {
-              msg: 'Filename cannot be empty',
+              msg: "Filename cannot be empty",
             },
           },
         },
         url: {
           type: DataTypes.VIRTUAL,
           get() {
-            return `${app.url}/images/${this.getDataValue('filename')}`
-          }
-        }
+            return `${app.url}/images/${this.getDataValue("filename")}`;
+          },
+        },
       },
       {
         sequelize, // Passar a instância de conexão
-        modelName: 'Photo', // Precisa esolher um nome para o model
-        tableName: 'photos', // Nome da tabela no database
+        modelName: "Photo", // Precisa esolher um nome para o model
+        tableName: "photos", // Nome da tabela no database
         underscored: false,
-      });
-      return this;
+      }
+    );
+    return this;
   }
 
   static associate(models) {
     this.belongsTo(models.Student, {
-      foreignKey: 'student_id',
+      foreignKey: "student_id",
     });
   }
-
 }
 
 // Model associations

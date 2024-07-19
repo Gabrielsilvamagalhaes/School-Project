@@ -31,7 +31,6 @@ export default function PrivateRoute({ children }) {
       console.log('Não Possui Autenticação')
       return
     }
-    console.log(token)
     if (token && typeof token === 'string') {
       redirectLastPage()
       localStorage.removeItem('redirectPath')

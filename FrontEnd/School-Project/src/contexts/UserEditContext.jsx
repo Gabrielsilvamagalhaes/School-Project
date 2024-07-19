@@ -1,7 +1,7 @@
 import { createContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
-import { useUserEditMutate } from '../hooks/useUserEditMutate'
+import { useUserEditMutate } from '../hooks/User/useUserEditMutate'
 import { draggable, pauseOnHover, theme } from '../config/toastifyOptions'
 import PropTypes from 'prop-types'
 import Loading from '../components/Loading/Loading'

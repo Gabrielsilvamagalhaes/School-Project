@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import axios from '../services/axios'
-import cookies from '../services/cookie'
+import axios from '../../services/axios'
+import cookies from '../../services/cookie'
 
 const createUser = async (data) => {
   const response = await axios.post('/user/register', data)
